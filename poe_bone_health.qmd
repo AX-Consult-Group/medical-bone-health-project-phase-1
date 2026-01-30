@@ -199,7 +199,6 @@ data <- bio_sel %>%
 #### Final cleaning
 The analysis was restricted to adults aged 20 years and older. Several risk proxy variables (e.g., smoking history and fracture history) are not collected for children and adolescents in NHANES. Restricting the analytic sample to adults ensures consistent measurement of all indicators and avoids misclassification due to age-based survey skip patterns.
 
-Furthermore, a small number of observations (n = 11) had missing body mass index values. These cases were retained in the analysis, with the low-BMI risk proxy conservatively defaulted to absent to avoid inflating risk estimates.
 ```{r}
 # Filtering out children and mutating NA for low BMI to 0
 data %<>%
@@ -207,6 +206,7 @@ data %<>%
 ```
 
 #### Missingness check
+The data set was examined for overall missingness to quantify the extent of incomplete records and to assess whether missing data posed a material risk to analytic validity. A meaningful amount of missing data was detected so variable-level analysis was conducted.
 ```{r}
 # Overall missingness summary
 na_summary <- data %>%
@@ -216,15 +216,17 @@ na_summary <- data %>%
     pct_missing = round(100 * total_missing / total_cells, 2)
   )
 
-kable(na_summary, col.names = c("Total Cells", "Total Cells Missing", "% Missing"), caption = "Overall Missing Cells Summary")
+kable(na_summary, 
+      col.names = c("Total Cells", "Total Cells Missing", "% Missing"), 
+      align = c("l", "l", "l"),
+      caption = "Overall Missing Cells Summary")
 
 ```
 
-Variable-level missingness
+Missingness was then evaluated at the variable level to identify systematic patterns or structural gaps, allowing informed decisions about exclusion or conservative handling of incomplete fields.
 ```{r}
 # Variable-level missingness
 na_check <- data %>%
- # select(-SMD030, -SMQ040) %>%   # exclude smoking follow-ups
   summarise(across(
     everything(),
     ~ sum(is.na(.)),
@@ -241,11 +243,14 @@ na_check <- data %>%
   ) %>%
   arrange(desc(missing_n))
 
-kable(na_check, col.names = c("Variable", "Missing Count", "% Missing"), caption = "Variable-level Missing Cells Summary")
+kable(na_check, 
+      col.names = c("Variable", "Missing Count", "% Missing"), 
+      align = c("l", "l", "l"),
+      caption = "Variable-level Missing Cells Summary")
 
 ```
 
-The missingness in the smoking-related variables (SMD030 & SMD030) are not problematic as they are automatically NA if the individual has NOT smoked more than 100 cigarettes in their lifetime making them a non-smoker in the smoker_status variable.
+The missingness in the smoking-related variables (SMD030 & SMD030) was not problematic as they are automatically coded as NA if the individual has NOT smoked more than 100 cigarettes in their lifetime making them a non-smoker in the smoker_status variable.
 
 A small number of observations (n = 12) had missing body mass index values. These cases were retained in the analysis, with the low-BMI risk proxy conservatively defaulted to absent to avoid inflating risk estimates.
 
@@ -605,7 +610,7 @@ ggplot(plot2, aes(x = age_band, y = gender, fill = missed_rate)) +
 
 The table below summarizes the prevalence of selected clinical and lifestyle risk factors related to bone health across the analytic population. Values represent the percentage of individuals exhibiting each risk factor and provide context for subsequent cohort and driver analyses. 
 
-In the total sample, reduced bone density was common, with of individuals classified as having lumbar spine osteopenia and a further 13% meeting criteria for osteoporosis. Behavioral and clinical risk factors were also prevalent, including smoking (26%), low physical activity (25%), and prior fracture history (12%), underscoring the multifaceted nature of bone-health risk beyond age alone.
+In the total sample, reduced bone density was common, with 22% of individuals classified as having lumbar spine osteopenia and a further 2% meeting criteria for osteoporosis. Behavioral and clinical risk factors were also prevalent, including smoking (48%), low physical activity (33%), and prior fracture history (12%), underscoring the multifaceted nature of bone-health risk beyond age alone.
 
 ```{r}
 # Risk factor prevalence in the population
@@ -642,7 +647,7 @@ kable(risk_summary, col.names = c("Driver", "Prevalence"), caption = "Risk Facto
 
 #### Risk Factor Prevalence (High-Risk Sample)
 
-The table below summarizes the prevalence of selected clinical and lifestyle risk factors related to bone health across the high-risk sample. Values represent the percentage of individuals exhibiting each risk factor and provide context for subsequent cohort and driver analyses. Among individuals classified as high bone risk, reduced bone density was dominant, with more than half meeting criteria for lumbar spine osteoporosis and 46% exhibiting osteopenia. Lifestyle and clinical risk factors remained highly prevalent, particularly low physical activity (39%), low body mass index (37%), current or former smoker (23%) and prior fracture history (22%), highlighting multiple, overlapping contributors to elevated bone-health risk.
+The table below summarizes the prevalence of selected clinical and lifestyle risk factors related to bone health across the high-risk sample. Values represent the percentage of individuals exhibiting each risk factor and provide context for subsequent cohort and driver analyses. Among individuals classified as high bone risk, reduced bone density was dominant, with 13% meeting criteria for lumbar spine osteoporosis and 87% exhibiting osteopenia. Lifestyle and clinical risk factors remained highly prevalent, particularly being a current or former smoker (66%), low physical activity (50%), prior fracture history (22%), and low body mass index (3%), highlighting multiple, overlapping contributors to elevated bone-health risk.
 
 ```{r}
 # Risk factor prevalence in the high risk sample
@@ -732,7 +737,7 @@ Risk-proxy individual risks: “What % would still be missed if we screened anyo
 
 The below plot shows the proportion of the total population that is both high bone risk and not screening-eligible under the various scenarios.
 
-Under current age-based screening criteria, approximately 26.8% of the total population is classified as high bone risk yet would not be identified for screening, indicating a substantial screening gap. Modest age-based expansion reduces this missed high-risk prevalence only marginally (to 25.1%), suggesting that age thresholds alone have limited impact. In contrast, screening triggered by simple risk proxies—such as smoking history, low BMI, low physical activity, or prior fracture—dramatically reduces the missed high-risk population to near zero, highlighting the potential value of risk-informed screening strategies over age-only approaches.
+Under current age-based screening criteria, approximately 16.4% of the total population is classified as high bone risk yet would not be identified for screening, indicating a substantial screening gap. Modest age-based expansion reduces this missed high-risk prevalence only marginally (to 13.4%), suggesting that age thresholds alone have limited impact. In contrast, screening triggered by simple risk proxies—such as smoking history, low BMI, low physical activity, or prior fracture—dramatically reduces the missed high-risk population to near zero, highlighting the potential value of risk-informed screening strategies over age-only approaches.
 
 ```{r}
 #| fig-height: 5
@@ -878,7 +883,7 @@ ggplot(plot4, aes(x = scenario, y = missed_rate)) +
 
 The below plot compares the population-level missed high-risk rate across racial groups, with the dashed line indicating the overall sample average. The figure is intended as an equity guardrail, highlighting whether missed high-risk prevalence differs meaningfully across groups rather than to support causal interpretation.
 
-Missed high-risk prevalence varies across racial groups, with Mexican American and Other/Multiracial populations showing higher-than-average missed rates, while Non-Hispanic Black individuals fall below the overall mean. Overall, the differences suggest that the screening gap is present across all groups, with some variation in magnitude rather than concentration in a single population.
+Missed high-risk prevalence varies across racial groups, with Mexican American sample showing higher-than-average missed rates, while Non-Hispanic Black and Other/Multi-racial individuals fall below the overall mean. Overall, the differences suggest that the screening gap is present across all groups, with some variation in magnitude rather than concentration in a single population.
 
 ```{r}
 # Racial Equity Plot
