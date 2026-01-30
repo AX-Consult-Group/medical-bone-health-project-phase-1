@@ -30,14 +30,31 @@ The primary objective is to quantify and illustrate the size of the missed high-
 
 ## Data sources
 
-Publicly available data from the **NHANES 2005–2006** cycle were used, including:
+The following SAS transport (`.XPT`) files from the **2005–2006 NHANES cycle** are required:
 
-- Demographics  
-- Body measurements  
-- Dual-energy X-ray absorptiometry (DXA)  
-- Osteoporosis questionnaire  
-- Smoking behavior  
-- Physical activity  
+- **Demographics (DEMO_D.XPT)**  
+  2005–2006 Demographics Data – Continuous NHANES  
+  https://wwwn.cdc.gov/nchs/nhanes/search/datapage.aspx?Component=Demographics&CycleBeginYear=2005
+
+- **Body Measures (BMX_D.XPT)**  
+  2005–2006 Examination Data – Continuous NHANES  
+  https://wwwn.cdc.gov/nchs/nhanes/search/datapage.aspx?Component=Examination&Cycle=2005-2006
+
+- **Dual Energy X-ray Absorptiometry (DXX_D.XPT)**  
+  1999–2006 DXA Multiple Imputation Data Files  
+  https://wwwn.cdc.gov/Nchs/Nhanes/Dxa/Dxa.aspx
+
+- **Osteoporosis Questionnaire (OSQ_D.XPT)**  
+  2005–2006 Questionnaire Data – Continuous NHANES  
+  https://wwwn.cdc.gov/nchs/nhanes/search/datapage.aspx?Component=Questionnaire&CycleBeginYear=2005
+
+- **Smoking Questionnaire (SMQ_D.XPT)**  
+  2005–2006 Questionnaire Data – Continuous NHANES  
+  https://wwwn.cdc.gov/nchs/nhanes/search/datapage.aspx?Component=Questionnaire&CycleBeginYear=2005
+
+- **Physical Activity Questionnaire (PAQ_D.XPT)**  
+  2005–2006 Questionnaire Data – Continuous NHANES  
+  https://wwwn.cdc.gov/nchs/nhanes/search/datapage.aspx?Component=Questionnaire&CycleBeginYear=2005
 
 All data were merged using the NHANES respondent identifier (`SEQN`).
 
@@ -67,7 +84,7 @@ All data were merged using the NHANES respondent identifier (`SEQN`).
 
 The full rendered report is available via **GitHub Pages**:
 
-➡️ *[Insert GitHub Pages link here]*
+https://ax-consult-group.github.io/medical-bone-health-treatment-gap/poe_bone_health.html
 
 ---
 
@@ -96,6 +113,8 @@ The analysis was conducted in R using the following packages:
   - knitr  
   - kableExtra  
 
+RStudio 2026.01.0+392 "Apple Blossom" Release (49fbea7a09a468fc4d1993ca376fd5b971cb58e3, 2026-01-04) for windows
+Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) RStudio/2026.01.0+392 Chrome/140.0.7339.249 Electron/38.7.2 Safari/537.36, Quarto 1.8.25
 ---
 
 ## License
