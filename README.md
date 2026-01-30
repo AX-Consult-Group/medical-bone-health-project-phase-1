@@ -30,7 +30,7 @@ The primary objective is to quantify and illustrate the size of the missed high-
 
 ## Data sources
 
-The following SAS transport (`.XPT`) files from the **2005–2006 NHANES cycle** are required:
+The following data sets (`.XPT`) files from the **2005–2006 NHANES cycle** are required:
 
 - **Demographics (DEMO_D.XPT)**  
   2005–2006 Demographics Data – Continuous NHANES  
@@ -111,10 +111,11 @@ The analysis was conducted in R using the following packages:
 - **Visualisation & reporting**  
   - ggplot2  
   - knitr  
-  - kableExtra  
+  - kableExtra
 
 RStudio 2026.01.0+392 "Apple Blossom" Release (49fbea7a09a468fc4d1993ca376fd5b971cb58e3, 2026-01-04) for windows
-Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) RStudio/2026.01.0+392 Chrome/140.0.7339.249 Electron/38.7.2 Safari/537.36, Quarto 1.8.25
+Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) RStudio/2026.01.0+392 Chrome/140.0.7339.249 Electron/38.7.2 Safari/537.36, Quarto 1.8.25 
+
 ---
 
 ## License
