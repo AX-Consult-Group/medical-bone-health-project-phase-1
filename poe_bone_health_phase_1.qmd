@@ -4,7 +4,7 @@
 
 ---
 title: "Bone Health - Screening Gap - Phase 1"
-author: "Tilabo Williamson, Caitlin Buenk & Jürgen Becker - AX Consult Group"
+author: "Tilabo Williamson, Caitlin Buenk & Jürgen Becker (Project Lead) - AX Consult Group"
 date: "2026-01-27"
 format:
   html:
@@ -42,6 +42,7 @@ Multiple NHANES data sets were integrated in this analysis, including demographi
 
 ```{r echo=FALSE}
 # Data was read in, it was a .xpt file
+# Data files are kept in a folder within the project folder called "data" - if replicating do the same for this chunk to run
 bio <- read_xpt("data/DEMO_D.xpt")
 
 bmx <- read_xpt("data/BMX_D.xpt")
