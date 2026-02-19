@@ -85,7 +85,7 @@ All data were merged using the NHANES respondent identifier (`SEQN`).
 
 The full rendered report is available via **GitHub Pages**:
 
-https://ax-consult-group.github.io/medical-bone-health-treatment-gap/poe_bone_health.html
+https://ax-consult-group.github.io/medical-bone-health-project-phase-1/poe_bone_health_phase_1.html
 
 ---
 
